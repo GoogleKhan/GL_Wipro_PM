@@ -12,6 +12,8 @@ public class GreatLearning {
 	private String courseName;
 	private String courseType;
 	private String instructorName;
+	
+	private Address address;
 
 //	public GreatLearning() {
 //	}

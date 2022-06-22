@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.wipro.firstapp.model.Address;
 import com.wipro.firstapp.model.GreatLearning;
 
 @SpringBootApplication
@@ -18,24 +19,18 @@ public class FirstAppApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		Address address = Address.builder().city("Lucknow").state("UP").build();
+
 		GreatLearning gl1 = GreatLearning.builder().build();
 		System.out.println(gl1);
 
-		GreatLearning gl2 = GreatLearning.builder()
-				.courseName("Java")
-				.build();
+		GreatLearning gl2 = GreatLearning.builder().courseName("Java").address(address).build();
 		System.out.println(gl2);
 
-		GreatLearning gl3 = GreatLearning.builder()
-				.courseName("AWS")
-				.courseType("JOB")
-				.build();
+		GreatLearning gl3 = GreatLearning.builder().courseName("AWS").courseType("JOB").build();
 		System.out.println(gl3);
 
-		GreatLearning gl4 = GreatLearning.builder()
-				.courseName("DevOps")
-				.courseType("Training")
-				.instructorName("Shadab")
+		GreatLearning gl4 = GreatLearning.builder().courseName("DevOps").courseType("Training").instructorName("Shadab")
 				.build();
 		System.out.println(gl4);
 
