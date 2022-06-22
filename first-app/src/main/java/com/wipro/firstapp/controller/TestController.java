@@ -12,7 +12,11 @@ public class TestController {
 	@GetMapping("/info")
 	public GreatLearning getInfo() {
 
-		GreatLearning greatLearning = new GreatLearning("AWS EC2", "Job Oriented", "Jeff");
+		// GreatLearning greatLearning = new GreatLearning("AWS EC2", "Job Oriented",
+		// "Jeff");
+
+		GreatLearning greatLearning = GreatLearning.builder().courseName("AWS EC2").courseType("Job Oriented")
+				.instructorName("Jeff").build();
 
 		return greatLearning;
 	}
@@ -20,7 +24,8 @@ public class TestController {
 	@PostMapping("/custom-info")
 	public GreatLearning getCustomInfo(String courseName, String courseType, String instructorName) {
 
-		GreatLearning greatLearning = new GreatLearning(courseName, courseType, instructorName);
+		GreatLearning greatLearning = GreatLearning.builder().courseName(courseName).courseType(courseType)
+				.instructorName(instructorName).build();
 
 		return greatLearning;
 	}
