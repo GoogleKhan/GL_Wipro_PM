@@ -64,13 +64,88 @@ public class ReadLibraryService {
 
 		return libraryRepository.findAll(sort);
 	}
+
 	public List<Library> getLibrariesCustomSortedByName(Direction direction) {
 
 		Sort sort = Sort.by(direction, "name");
 
 		return libraryRepository.findAll(sort);
 	}
-	
 
+	public Page<Library> getLibrariesPagedAndSortedByNameAndWithTheseBooks(String commaSeparatedBookNames) {
 
+		Library library = new Library();
+		library.setCommaSeparatedBookNames(commaSeparatedBookNames);
+
+		ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+				.withMatcher("commaSeparatedBookNames", ExampleMatcher.GenericPropertyMatchers.exact())
+				.withIgnorePaths("id", "name");
+
+		Example<Library> example = Example.of(library, exampleMatcher);
+
+		Sort sort = Sort.by("name");
+		Pageable pageable = PageRequest.of(0, 2, sort);
+
+		return libraryRepository.findAll(example, pageable);
+	}
+
+	public Page<Library> getLibrariesCustomPagedAndSortedWithDefaultOrderByNameAndWithTheseBooks(
+			String commaSeparatedBookNames, int pageNum, int numOfRecordsOnPage) {
+
+		Library library = new Library();
+		library.setCommaSeparatedBookNames(commaSeparatedBookNames);
+
+		ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+				.withMatcher("commaSeparatedBookNames", ExampleMatcher.GenericPropertyMatchers.exact())
+				.withIgnorePaths("id", "name");
+
+		Example<Library> example = Example.of(library, exampleMatcher);
+
+		Sort sort = Sort.by("name");
+		Pageable pageable = PageRequest.of(pageNum, numOfRecordsOnPage, sort);
+
+		return libraryRepository.findAll(example, pageable);
+	}
+
+	public Page<Library> getLibrariesPagedAndSortedByName(int pageNum, int numOfRecordsOnPage) {
+
+		Sort sort = Sort.by("name");
+		Pageable pageable = PageRequest.of(pageNum, numOfRecordsOnPage, sort);
+
+		return libraryRepository.findAll(pageable);
+	}
+
+	public List<Library> getSortedByNameAndWithTheseBooks(String commaSeparatedBookNames) {
+
+		Sort sort = Sort.by("name");
+
+		Library library = new Library();
+		library.setCommaSeparatedBookNames(commaSeparatedBookNames);
+
+		ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+				.withMatcher("commaSeparatedBookNames", ExampleMatcher.GenericPropertyMatchers.exact())
+				.withIgnorePaths("id", "name");
+
+		Example<Library> example = Example.of(library, exampleMatcher);
+
+		return libraryRepository.findAll(example, sort);
+	}
+
+	public List<Library> getLibrariesByIds(List<Long> ids) {
+		return libraryRepository.findAllById(ids);
+	}
+
+	public List<Library> getAllLibraryWithTheseBooks(String commaSeparatedBookNames) {
+
+		Library library = new Library();
+		library.setCommaSeparatedBookNames(commaSeparatedBookNames);
+
+		ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+				.withMatcher("commaSeparatedBookNames", ExampleMatcher.GenericPropertyMatchers.exact())
+				.withIgnorePaths("id", "name");
+
+		Example<Library> example = Example.of(library, exampleMatcher);
+
+		return libraryRepository.findAll(example);
+	}
 }
